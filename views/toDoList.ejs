@@ -1,0 +1,72 @@
+<%- include ("header.ejs") %>
+<body>
+    <main>
+        <div class="container ">
+            <h1>Min att göra lista</h1>
+            <form action="/todolist" method="post" class="" id="toDoForm">
+                <div class="form-row">
+                    <div class="form-group my-2">
+                        <label for="newTask" class="m-1">Ny uppgift</label>
+                        <input type="text" class="form-control mr-2" name="todo" id="todoInput" value="" placeholder="fyll i ny uppgift">
+                    </div>
+                    <div class="form-group my-2">
+                        <label for="creator" class="m-1">Ditt namn</label>
+                        <input type="text" class="form-control mr-2" name="creator" id="nameInput" placeholder="fyll i namn">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group my-2">
+                        <label for="priority" class="m-1" id="prioInput">Prioritet 1 = jätteviktigt och 5 = mindre viktigt</label>
+                        <input type="number" class="form-control mr-2" name="priority" min="1" max="5" id="">
+                    </div>
+                    <input type="hidden" name="date" id="">
+                    <button type="submit" class="btn m-2" id="addTaskButton">Lägg till uppgift</button>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-10 col-m-9 mt-4">
+                    <div class="row">
+                        <div class="col-5"><h2>Uppgift</h2></div>
+                        <div class="col-4 text-center text-md-left"><h2>Prio</h2></div>
+                        <div class="col-3"><h2>Namn</h2></div>
+                    </div>
+                    <hr>
+                    <div class="d-flex flex-column my-3" id="toDosContainer">
+                        <% toDos.forEach( (task)=> { %>
+                            <div class="row mt-4">
+                                <div class="col-4 col-md-3 col-lg-5"><h3><%= task.todo %></h3></div> 
+                                <div class="col-5 col-md-6 col-lg-4 text-center text-lg-left"><h3><%= task.priority %></h3></div>
+                                <div class="col-3"><h3><%= task.creator %></h3></div>
+                                </div>
+                                <div class="row my-2">
+                                <% let msec = Date.parse(task.date);
+                                let dt = new Date(msec);
+                                let dateCreated = dt.toLocaleDateString(); %>
+                                <div class="col-6" id="date"><%= dateCreated %></div>
+                                <div class="col-6 d-flex justify-content-center">
+                                    <button type="button" class="btn btn-sm mx-1"><a href="/delete/<%= task._id%> ">Radera</a></button>
+                                    <button type="button" class="btn btn-sm mx-1" id="deleteButton"><a href="/update/<%= task._id%> ">Ändra </a></button>
+                                </div>
+                            </div>
+                        <% }); %>  
+                    </div>
+                </div>
+                <div class="col-2 col-m-3"></div>
+            </div>
+            <div class="class row justify-content-center sortButtons my-3">
+                <button type="button" class="btn mr-2"><a href="/todolist/AtoZ">Sortera A &rarr; Z </a></button>
+                <button type="button" class="btn mr-2 text-nowrap"><a href="/todolist/prio1to5">Prio 1 &rarr; 5</a></button>
+                <button type="button" class="btn mr-2"><a href="/todolist">Osorterat </a></button>
+            </div>
+            <div class="container pagination">
+                <p>Visa sida: </p>
+                    <a href="/todolist/?page=1">1</a>
+                    <a href="/todolist/?page=2">2</a> 
+                    <a href="/todolist/?page=3">3</a>
+            </div>
+            <div class="text-center">
+              <button class="btn my-5"><a href="/todolist/about">Läs mer om sidan</a></button>
+            </div>
+        </div>
+    </main> 
+    <%- include ("footer.ejs") %>

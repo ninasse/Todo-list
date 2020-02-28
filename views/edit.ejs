@@ -1,0 +1,28 @@
+<%- include ("header.ejs") %>
+<body>
+    <main>
+        <div class="container">
+            <h1>Gör ändringar</h1>
+            <form actionn="/todolist" method="post" class="" id="editForm">
+                <div class="form-row">
+                    <div class="form-group my-2">
+                        <label for="editTask" class="m-1">Ändra uppgift</label>
+                        <input type="text" class="form-control mr-2" name="todo" id="" value="<%= editRes.todo %>">
+                    </div>
+                    <div class="form-group my-2">
+                        <label for="creator" class="m-1">Skapat av: </label>
+                        <input type="text" class="form-control mx-2" name="creator" readonly id="" value="<%= editRes.creator %>">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group my-2">
+                        <label for="editPriority" class="m-1" id="prioInput">Prioritet 1 = jätteviktigt och 5 = mindre viktigt</label>
+                        <input type="number" min="1" max="5" name="priority" class="form-control" id="" value="<%= editRes.priority %>">    
+                    </div>
+                    <input type="hidden" name="date" id="<%= editRes._id %>">
+                    <button type="submit" class="btn m-2">Spara ändringar</button>
+                </div>
+            </form>  
+        </div>
+    </main>
+<%- include ("footer.ejs") %>

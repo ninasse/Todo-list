@@ -1,0 +1,85 @@
+html {
+  height: 100%; }
+  html body {
+    background-image: url("../images/background_mobile.jpg");
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%; }
+    html body main {
+      flex: 1 0 auto; }
+      html body main a {
+        color: black; }
+      html body main h1 {
+        margin-top: 2rem;
+        font-size: 2.2rem;
+        text-align: center; }
+      html body main h2 {
+        font-size: 1.2rem; }
+      html body main h3 {
+        font-size: 1.1rem; }
+      html body main form {
+        justify-content: center; }
+        html body main form .form-row {
+          display: flex;
+          flex-wrap: nowrap; }
+          html body main form .form-row .form-control {
+            background-color: rgba(252, 221, 243, 0.555);
+            border: 1px solid #702470; }
+          html body main form .form-row #prioInput {
+            display: block; }
+      html body main .btn {
+        background-color: rgba(112, 36, 112, 0.904);
+        color: #fcddf3; }
+        html body main .btn a {
+          color: #fcddf3; }
+      html body main .btn:hover {
+        background-color: #fcddf3;
+        color: #702470; }
+        html body main .btn:hover a:hover {
+          color: #702470; }
+      html body main .row {
+        margin-right: 0;
+        margin-left: 0; }
+        html body main .row #date {
+          font-size: small; }
+        html body main .row .btn-sm {
+          font-size: small; }
+      html body main .pagination {
+        justify-content: center; }
+        html body main .pagination p {
+          display: inline;
+          margin: 1rem; }
+        html body main .pagination a {
+          margin: 1rem; }
+    html body .sortButtons {
+      flex-wrap: nowrap; }
+    html body #errButton {
+      margin: 0 auto; }
+    html body footer {
+      padding-top: 2rem;
+      padding-bottom: 1.7rem;
+      font-size: 0.8rem;
+      background-color: rgba(112, 36, 112, 0.753);
+      flex-shrink: 0;
+      display: flex;
+      justify-content: space-around; }
+
+@media (min-width: 520px) {
+  html body {
+    background-image: url("../images/background.jpg");
+    background-size: cover; } }
+
+@media (min-width: 380px) and (max-width: 767px) {
+  html body main form {
+    flex-flow: column; }
+    html body main form .btn {
+      font-size: small;
+      margin-bottom: 0 !important; } }
+
+@media (min-width: 768px) and (max-width: 990px) {
+  body main .form-inline .btn {
+    background-color: transparent;
+    border: 1px solid #702470;
+    margin-top: 0;
+    font-size: small; } }
