@@ -3,35 +3,38 @@ const Todo = require("../model/Todo");
 // express.Router is a function within express to handle our routes.
 const router = express.Router();
 
-const PORT = process.env.PORT || 8002;
-
 const tasks = 3;
 
-router.get("/todolist/AtoZ", async (request, response) => {
-    console.log(request.query);
-    const page = request.query.page;
-    const sorted = request.query.sort + 1;
-    const toDos = await Todo.find().sort({ todo: sorted }).skip((page - 1) * tasks).limit(tasks);
-    response.render("toDoList", { toDos });
-});
+router.route("/")
+    .get((request, response) => {
+        response.redirect("/todolist")
+    });
 
-router.get("/todolist/prio1to5", async (request, response) => {
-    console.log(request.query);
-    const page = request.query.page;
-    const sorted = request.query.sort - 1;
-    const toDos = await Todo.find().sort({ priority: sorted }).skip((page - 1) * tasks).limit(tasks);
-    response.render("toDoList", { toDos });
-});
+router.route("/todolist/AtoZ")
+    .get(async (request, response) => {
+        console.log(request.query);
+        const page = request.query.page;
+        const sorted = request.query.sort + 1;
+        const toDos = await Todo.find().sort({ todo: sorted }).skip((page - 1) * tasks).limit(tasks);
+        response.render("toDoList", { toDos });
+    });
+
+router.route("/todolist/prio1to5")
+    .get(async (request, response) => {
+        console.log(request.query);
+        const page = request.query.page;
+        const sorted = request.query.sort - 1;
+        const toDos = await Todo.find().sort({ priority: sorted }).skip((page - 1) * tasks).limit(tasks);
+        response.render("toDoList", { toDos });
+    });
 
 router.route("/todolist")
-
     .get(async (request, response) => {
 
         const page = request.query.page;
         const toDos = await Todo.find().skip((page - 1) * tasks).limit(tasks);
         response.render("toDoList", { toDos, page });
     })
-
     .post(async (request, response) => {
         const toDo = await new Todo({
             todo: request.body.todo,
@@ -50,20 +53,18 @@ router.route("/todolist")
         });
     });
 
-router.get("/todolist/about", (request, response) => {
-    response.render("about");
-})
+router.route("/todolist/about")
+    .get((request, response) => {
+        response.render("about");
+    });
 
-
-
-router.get("/delete/:id", async (request, response) => {
-    console.log(request.params.id);
-    await Todo.deleteOne({ _id: request.params.id });
-    response.redirect("/todolist");
-});
+router.route("/delete/:id")
+    .get(async (request, response) => {
+        await Todo.deleteOne({ _id: request.params.id });
+        response.redirect("/todolist");
+    });
 
 router.route("/update/:id")
-
     .get(async (request, response) => {
         const editRes = await Todo.findById({ _id: request.params.id });
         response.render("edit", { editRes });
@@ -75,4 +76,4 @@ router.route("/update/:id")
         response.redirect("/todolist");
     });
 
-module.exports = { router, PORT }
+module.exports = router;

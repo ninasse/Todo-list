@@ -1,7 +1,8 @@
-require('dotenv').config()
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
-const mongoDB = {
-    databaseURL: process.env.MONGO_DB
+const config = {
+    databaseURL: process.env.DATABASE,
+    mail: process.env.MAIL
 };
 
-module.exports = mongoDB;
+module.exports = config;

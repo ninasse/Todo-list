@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const config = require("./config/config");
-require('dotenv').config()
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 const { app, PORT } = require('./src/server')
 
 const dbOptions = {
@@ -10,7 +10,7 @@ const dbOptions = {
 }
 
 // connection to db and then listen to PORT
-mongoose.connect(config.mongoDB.databaseURL, dbOptions).then(() => {
+mongoose.connect(config.databaseURL, dbOptions).then(() => {
     app.listen(PORT, () => console.log(`App is up on port ${PORT}!`))
 })
 
